@@ -6,17 +6,27 @@ import QuizQuestionButton from './QuizQuestionButton.js'
 //Create QuizQuestion class that extends Component and holds the instruction_text and answer_options
 class QuizQuestion extends Component {
 
+  handleClick(buttonText) {
+    if (buttonText === this.props.quiz_question.answer) {
+       this.props.showNextQuestionHandler()
+    }
+  }
+
   render (){
     return (
       <main>
         <section>
-        //Create a instruction_text area
           <p>{this.props.quiz_question.instruction_text}</p>
         </section>
         <section className="buttons">
           <ul>
-          //list the answer_options
-            <QuizQuestionButton button_text={this.props.quiz_question.answer_options[0]}/>
+            {this.props.quiz_question.answer_options.map((answer_option, index) => {
+                return <QuizQuestionButton
+                        key={index}
+                        button_text={answer_option}
+                        clickHandler={this.handleClick.bind(this)}
+                        />
+            })}
           </ul>
         </section>
       </main>
