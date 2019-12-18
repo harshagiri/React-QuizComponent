@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 //import QuizQuestion from QuizQuestion file at same level as this file
 import QuizQuestion from './QuizQuestion.js'
+//import QuizEnd from QuizEnd
+import QuizEnd from './QuizEnd.js'
 //Declare a global variable that  will hold the JSON file which has questions and answers
 let quizData = require('./quiz_data.json')
 
@@ -16,12 +18,19 @@ class Quiz extends Component {
   }
 
   render () {
+    const isQuizEnd = ((this.state.quiz_position - 1) === quizData.quiz_questions.length)
     return (
-      //Render the quiz question that accepts the 1st quiz element as input
-      //from quizData
+      //Render only if the questions are exhausted
+      <div>
+      {
+        isQuizEnd ? <QuizEnd /> :
+        //Render the quiz question that accepts the 1st quiz element as input
+        //from quizData
         <QuizQuestion quiz_question={
           quizData.quiz_questions[this.state.quiz_position - 1]}
         />
+      }
+      </div>
     )
   }
 }
