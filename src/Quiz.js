@@ -25,13 +25,17 @@ class Quiz extends Component {
     })
   }
 
+  handleResetClick(){
+    this.setState({quiz_position : 1})
+  }
+
   render () {
     const isQuizEnd = ((this.state.quiz_position - 1) === quizData.quiz_questions.length)
     return (
       //Render only if the questions are exhausted
       <div>
       {
-        isQuizEnd ? <QuizEnd /> :
+        isQuizEnd ? <QuizEnd resetClickHandler={this.handleResetClick.bind(this)}/> :
         //Render the quiz question that accepts the 1st quiz element as input
         //from quizData
         <QuizQuestion
